@@ -132,7 +132,7 @@ const Home = () => {
         </p>
         
         <div className='stagger-box flex flex-wrap justify-center gap-6'>
-          {items.map((item: any, index) => (
+          {items.map((item, index) => (
             <a
               key={index}
               href={item.href}
