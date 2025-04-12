@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Petolrage",
+  title: "Petrolage",
   description: "We power Nigeria",
 };
 
