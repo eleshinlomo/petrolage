@@ -1,6 +1,6 @@
 'use client'
 
-import { PopoverDemo } from "@/components/aboutUs/popover"
+import AboutPage from "@/components/aboutUs/popover"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef } from "react"
@@ -42,7 +42,7 @@ const Home = () => {
       y: -20, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: { each: 0.2, from: "random" }, delay: 2.5
     })
 
-    Services?.length > 0 && Services.forEach((_, i) => {
+    Services.forEach((_, i) => {
       gsap.set(`.box-${i}`, { transformPerspective: 1000 })
       gsap.to(`.box-${i}`, {
         rotationY: 5, rotationX: 5, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)", duration: 0.5, paused: true, ease: "power2.out"
@@ -156,7 +156,7 @@ const Home = () => {
        
         <div id='about-us' className="inherit text-purple-900 ">About us</div>
         <div   className="mt-16">
-        <PopoverDemo />
+        <AboutPage />
          
         </div>
       </div>
