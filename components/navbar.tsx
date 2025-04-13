@@ -1,15 +1,21 @@
 'use client'
+
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { useRef, useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/public/images/logo/petrolage_logo.png'
+import { NavData } from './data/nav'
+import AboutPage from './aboutUs/popover'
 
 const Navbar = () => {
   const container = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+
+  const path = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,8 +84,8 @@ const Navbar = () => {
       ref={container}
       className={`fixed w-full top-0 left-0 z-50 transition-all duration-500 ${
         scrolled 
-          ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-white/20' 
-          : 'bg-white/80 backdrop-blur-md border-b border-white/10'
+          ? 'bg-black/95 backdrop-blur-lg shadow-lg border-b border-gray-800' 
+          : 'bg-black/90 backdrop-blur-md border-b border-gray-800/50'
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,78 +95,60 @@ const Navbar = () => {
             <div className="relative w-9 h-9 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center text-white font-bold shadow-lg group-hover:rotate-12 transition-transform duration-300">
               <Image src={logo} alt='logo' fill />
             </div>
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-blue-600">
+            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-400">
               Petrolage
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link 
-              href="#top" 
-              className="nav-item relative px-1 py-2 text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
-              onMouseEnter={handleNavLinkHover}
-              onMouseLeave={handleNavLinkLeave}
-            >
-              Home
-              <span className="nav-link-underline absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-green-500 to-blue-500 transform origin-left"></span>
-            </Link>
-            <Link 
-              href="#about-us" 
-              className="nav-item relative px-1 py-2 text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
-              onMouseEnter={handleNavLinkHover}
-              onMouseLeave={handleNavLinkLeave}
-            >
-              About
-              <span className="nav-link-underline absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-green-500 to-blue-500 transform origin-left"></span>
-            </Link>
-            <Link 
-              href="#above-footer" 
-              className="nav-item relative px-1 py-2 text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
-              onMouseEnter={handleNavLinkHover}
-              onMouseLeave={handleNavLinkLeave}
-            >
-              Services
-              <span className="nav-link-underline absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-green-500 to-blue-500 transform origin-left"></span>
-            </Link>
-            <Link 
-              href="#above-footer" 
-              className="nav-item relative px-1 py-2 text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
-              onMouseEnter={handleNavLinkHover}
-              onMouseLeave={handleNavLinkLeave}
-            >
-              Contact
-              <span className="nav-link-underline absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-green-500 to-blue-500 transform origin-left"></span>
-            </Link>
+            {NavData?.map((nav, index) => (
+              <div key={index}>
+              {nav.name === 'About' ? <AboutPage />
+                
+                :<Link 
+                
+                href={nav.href} 
+                className={`nav-item relative px-1 py-2 ${
+                  path === nav.href ? 'text-white' : 'text-gray-400'
+                } hover:text-white transition-colors duration-300 font-medium`}
+                onMouseEnter={handleNavLinkHover}
+                onMouseLeave={handleNavLinkLeave}
+              >
+                {nav.name}
+                <span className="nav-link-underline absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-green-400 to-blue-400 transform origin-left"></span>
+              </Link>}
+              </div>
+            ))}
           </nav>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
               onClick={toggleMenu}
-              className="nav-item inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none transition duration-300"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none transition duration-300"
               aria-label="Toggle menu"
             >
               {!isOpen ? (
                 <div className="flex flex-col space-y-1.5">
-                  <span className="w-6 h-0.5 bg-gray-700 transition-all duration-300"></span>
-                  <span className="w-6 h-0.5 bg-gray-700 transition-all duration-300"></span>
-                  <span className="w-6 h-0.5 bg-gray-700 transition-all duration-300"></span>
+                  <span className="w-6 h-0.5 bg-gray-400 transition-all duration-300"></span>
+                  <span className="w-6 h-0.5 bg-gray-400 transition-all duration-300"></span>
+                  <span className="w-6 h-0.5 bg-gray-400 transition-all duration-300"></span>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center">
-                  <span className="w-6 h-0.5 bg-gray-700 transform rotate-45 translate-y-0.5 transition-all duration-300"></span>
-                  <span className="w-6 h-0.5 bg-gray-700 transform -rotate-45 -translate-y-0.5 transition-all duration-300"></span>
+                  <span className="w-6 h-0.5 bg-gray-400 transform rotate-45 translate-y-0.5 transition-all duration-300"></span>
+                  <span className="w-6 h-0.5 bg-gray-400 transform -rotate-45 -translate-y-0.5 transition-all duration-300"></span>
                 </div>
               )}
             </button>
           </div>
-
+       
           {/* CTA Button - Desktop */}
           <div className="hidden md:block">
             <Link 
-              href="#l-top" 
-              className=" relative px-6 py-2.5 rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+              href={path === '/' ? "#l-top" : '/'}
+              className="relative px-6 py-2.5 rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
             >
               <span className="relative z-10">Get Started</span>
               <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
@@ -170,41 +158,23 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden fixed inset-0 bg-white/95 backdrop-blur-lg z-40 mt-16 overflow-y-auto">
+          <div className="md:hidden fixed inset-0 bg-black/95 backdrop-blur-lg z-40 mt-16 overflow-y-auto">
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col space-y-4">
-                <Link 
-                  href="/" 
-                  onClick={toggleMenu}
-                  className="px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 transition-all duration-300 flex items-center"
-                >
-                  <span className="w-2 h-2 rounded-full bg-green-500 mr-3"></span>
-                  Home
-                </Link>
-                <Link 
-                  href="#top" 
-                  onClick={toggleMenu}
-                  className="px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 transition-all duration-300 flex items-center"
-                >
-                  <span  className="w-2 h-2 rounded-full bg-blue-500 mr-3"></span>
-                  About
-                </Link>
-                <Link 
-                  href="/services" 
-                  onClick={toggleMenu}
-                  className="px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 transition-all duration-300 flex items-center"
-                >
-                  <span className="w-2 h-2 rounded-full bg-purple-500 mr-3"></span>
-                  Services
-                </Link>
-                <Link 
-                  href="#above-footer" 
-                  onClick={toggleMenu}
-                  className="px-4 py-3 rounded-lg text-lg font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 transition-all duration-300 flex items-center"
-                >
-                  <span className="w-2 h-2 rounded-full bg-indigo-500 mr-3"></span>
-                  Contact
-                </Link>
+                {NavData?.map((nav, index) => (
+                  <Link 
+                    key={index}
+                    href={nav.href}
+                    onClick={toggleMenu}
+                    className={`px-4 py-3 rounded-lg text-lg font-medium ${
+                      path === nav.href ? 'text-white' : 'text-gray-400'
+                    } hover:text-white hover:bg-gray-800/50 transition-all duration-300 flex items-center`}
+                  >
+                    <span className="w-2 h-2 rounded-full bg-green-400 mr-3"></span>
+                    {nav.name}
+                  </Link>
+                ))}
+               
                 <div className="pt-6">
                   <Link 
                     href="#about-us" 

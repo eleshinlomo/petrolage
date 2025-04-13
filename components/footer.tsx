@@ -1,12 +1,14 @@
 'use client'
+
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/public/images/logo/petrolage_logo.png'
-import { Socials } from './social'
-import { Services } from './services'
+import { Socials } from './data/social'
+import { Services } from './data/services'
+import { NavData } from './data/nav'
 
 const Footer = () => {
   const container = useRef<HTMLDivElement>(null)
@@ -45,8 +47,9 @@ const Footer = () => {
 
   return (
     <div 
+    id = 'above-footer'
       ref={container}
-      className="relative bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 pt-20 pb-12 overflow-hidden"
+      className="relative bg-gradient-to-br from-black via-gray-900 to-gray-800 pt-20 pb-12 overflow-hidden"
     >
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -65,12 +68,12 @@ const Footer = () => {
           />
         ))}
         
-        {/* Large decorative circles */}
-        <div className="footer-decoration absolute -top-20 -left-20 w-64 h-64 rounded-full bg-indigo-800/20 blur-3xl"></div>
-        <div className="footer-decoration absolute -bottom-20 -right-20 w-64 h-64 rounded-full bg-purple-800/20 blur-3xl"></div>
+        {/* Large decorative circles - Darker version */}
+        <div className="footer-decoration absolute -top-20 -left-20 w-64 h-64 rounded-full bg-gray-800/20 blur-3xl"></div>
+        <div className="footer-decoration absolute -bottom-20 -right-20 w-64 h-64 rounded-full bg-gray-800/20 blur-3xl"></div>
         
-        {/* Diagonal light streaks */}
-        <div className="absolute inset-0 opacity-20">
+        {/* Diagonal light streaks - Darker version */}
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white to-transparent"></div>
           <div className="absolute top-0 left-0 w-1/3 h-full bg-gradient-to-r from-white to-transparent transform -skew-x-12"></div>
         </div>
@@ -89,7 +92,7 @@ const Footer = () => {
                 Petrolage
               </span>
             </div>
-            <p className="text-gray-300 mb-6 text-lg">
+            <p className="text-gray-400 mb-6 text-lg">
               Innovating solutions for the modern world.
             </p>
             <div className="flex space-x-4">
@@ -98,11 +101,11 @@ const Footer = () => {
                   key={index} 
                   href={social.link} 
                   target={social.target}
-                  className="text-gray-400 hover:text-white transition-all duration-300 group"
+                  className="text-gray-500 hover:text-white transition-all duration-300 group"
                 > 
                   <span className="sr-only">{social.name}</span>
-                  <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center shadow-sm hover:shadow-lg transition-all group-hover:bg-gradient-to-r from-green-400 to-blue-500 group-hover:scale-110">
-                    <span className="text-gray-300 group-hover:text-white">
+                  <div className="w-10 h-10 bg-gray-800/80 rounded-full flex items-center justify-center shadow-sm hover:shadow-lg transition-all group-hover:bg-gradient-to-r from-green-400 to-blue-500 group-hover:scale-110">
+                    <span className="text-gray-400 group-hover:text-white">
                       {social.name.charAt(0).toUpperCase()}
                     </span>
                   </div>
@@ -118,14 +121,14 @@ const Footer = () => {
               Quick Links
             </h3>
             <ul className="space-y-3">
-              {['Home', 'About', 'Services', 'Contact'].map((link) => (
-                <li key={link}>
+              {NavData?.map((nav, index) => (
+                <li key={index}>
                   <Link 
-                    href='#top'
+                    href={nav.href}
                     className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group"
                   >
-                    <span className="w-2 h-2 rounded-full bg-gray-600 mr-3 group-hover:bg-green-400 transition-colors"></span>
-                    {link}
+                    <span className="w-2 h-2 rounded-full bg-gray-700 mr-3 group-hover:bg-green-400 transition-colors"></span>
+                    {nav.name}
                   </Link>
                 </li>
               ))}
@@ -145,7 +148,7 @@ const Footer = () => {
                     href={service.href} 
                     className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group"
                   >
-                    <span className="w-2 h-2 rounded-full bg-gray-600 mr-3 group-hover:bg-blue-400 transition-colors"></span>
+                    <span className="w-2 h-2 rounded-full bg-gray-700 mr-3 group-hover:bg-blue-400 transition-colors"></span>
                     {service.name}
                   </Link>
                 </li>
@@ -185,7 +188,7 @@ const Footer = () => {
 
         {/* Divider */}
         <div className="footer-item my-12">
-          <div className="h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+          <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
         </div>
 
         {/* Copyright */}
@@ -194,13 +197,13 @@ const Footer = () => {
             © {new Date().getFullYear()} Petrolage Group. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300 hover:underline">
+            <Link href="/privacypage" className="text-gray-500 hover:text-white text-sm transition-colors duration-300 hover:underline">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors duration-300 hover:underline">
+            <Link href="/termsofservicepage" className="text-gray-500 hover:text-white text-sm transition-colors duration-300 hover:underline">
               Terms of Service
             </Link>
-            <Link href="/cookies" className="text-gray-400 hover:text-white text-sm transition-colors duration-300 hover:underline">
+            <Link href="/cookiepolicypage" className="text-gray-500 hover:text-white text-sm transition-colors duration-300 hover:underline">
               Cookie Policy
             </Link>
           </div>
