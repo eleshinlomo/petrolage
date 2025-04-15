@@ -1,3 +1,4 @@
+import Hero from "@/components/hero"
 import Service from "@/components/services"
 
 const Home = ()=>{
@@ -5,6 +6,7 @@ const Home = ()=>{
   return (
 
     <div>
+      <Hero />
       <Service />
     </div>
   )

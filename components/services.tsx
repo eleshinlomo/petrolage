@@ -46,11 +46,11 @@ const Service = () => {
 
   }, { scope: container })
 
-  const title = "Welcome to Petrolage Group"
+  const title = "WHAT WE DO"
   const titleChars = title.split("")
 
   return (
-    <div ref={container} className="min-h-screen pt-24 py-8 flex flex-col justify-center items-center overflow-hidden relative bg-black">
+    <div id='services' ref={container} className="min-h-screen pt-4 py-8 flex flex-col justify-center items-center overflow-hidden relative bg-black">
 
       {/* Enhanced Background Layer - Darker Version */}
       <div className="absolute inset-0 overflow-hidden z-0">
@@ -121,8 +121,8 @@ const Service = () => {
           ))}
         </h1>
         
-        <p className="subtitle text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto">
-          Registered in 2015 (RC 1275201)
+        <p className="subtitle text-xl md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+          Petrolage was registered as a Nigerian company in 2015 (RC 1275201)
         </p>
         
         {/* Enhanced Services Section */}
