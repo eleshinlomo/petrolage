@@ -1,4 +1,4 @@
-import AboutUs from "./aboutUs/aboutUs";
+
 import AboutPage from "./aboutUs/popover";
 
 
